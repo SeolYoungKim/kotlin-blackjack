@@ -39,7 +39,7 @@ object BlackjackPrinter {
 
     fun printAllFinalScore(participants: Participants) {
         participants.elements.forEach { participant ->
-            println("${createCardMessage(participant)} - 결과: ${participant.calculateTotalScore()}")
+            println("${createCardMessage(participant)} - 결과: ${participant.score}")
         }
     }
 

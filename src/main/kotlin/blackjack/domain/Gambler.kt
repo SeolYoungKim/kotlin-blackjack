@@ -2,8 +2,7 @@ package blackjack.domain
 
 class Gambler(name: String) : Participant(name) {
     override fun canNotReceiveCard(): Boolean {
-        val totalScore = calculateTotalScore()
-        return totalScore >= BlackjackRule.BLACKJACK_SCORE
+        return score >= BlackjackRule.BLACKJACK_SCORE
     }
 
     fun determineResultStatus(dealer: Dealer): ResultStatus {

@@ -2,8 +2,7 @@ package blackjack.domain
 
 class Dealer : Participant("딜러") {
     override fun canNotReceiveCard(): Boolean {
-        val totalScore = calculateTotalScore()
-        return totalScore > MAXIMUM_SCORE_TO_RECEIVE_CARD
+        return score > MAXIMUM_SCORE_TO_RECEIVE_CARD
     }
 
     companion object {

@@ -6,6 +6,9 @@ sealed class Participant(val name: String) {
     val cards: List<Card>
         get() = _cards.elements
 
+    val score: Int
+        get() = _cards.calculateTotalScore()
+
     fun receive(vararg cards: Card) {
         _cards.addAll(*cards)
     }
@@ -15,19 +18,15 @@ sealed class Participant(val name: String) {
     }
 
     fun isBurst(): Boolean {
-        return calculateTotalScore() > BlackjackRule.BLACKJACK_SCORE
+        return score > BlackjackRule.BLACKJACK_SCORE
     }
 
     fun isScoreEqualTo(other: Participant): Boolean {
-        return calculateTotalScore() == other.calculateTotalScore()
+        return score == other.score
     }
 
     fun isScoreLargerThan(other: Participant): Boolean {
-        return calculateTotalScore() > other.calculateTotalScore()
-    }
-
-    fun calculateTotalScore(): Int {
-        return _cards.calculateTotalScore()
+        return score > other.score
     }
 
     abstract fun canNotReceiveCard(): Boolean
