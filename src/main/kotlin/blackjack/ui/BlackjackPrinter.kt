@@ -33,8 +33,8 @@ object BlackjackPrinter {
         println(createCardMessage(participant))
     }
 
-    fun askIfWantMoreCard(participant: Participant) {
-        println("${participant.name}은(는) 한장의 카드를 더 받겠습니까?(예는 ${BlackjackReader.YES_SIGN}, 아니오는 ${BlackjackReader.NO_SIGN}. 대소문자 구분 X)")
+    fun askIfWantMoreCard(name: String) {
+        println("${name}은(는) 한장의 카드를 더 받겠습니까?(예는 ${BlackjackReader.YES_SIGN}, 아니오는 ${BlackjackReader.NO_SIGN}. 대소문자 구분 X)")
     }
 
     fun printAllFinalScore(participants: Participants) {

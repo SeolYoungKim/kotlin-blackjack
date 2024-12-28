@@ -9,7 +9,8 @@ import blackjack.ui.BlackjackPrinter
 import blackjack.ui.BlackjackReader
 
 fun main() {
-    val gamblers = BlackjackReader.readGamblers()
+    val gamblers = BlackjackReader.readGamblerNames()
+        .map { name -> Gambler(name) }
     val participants = Participants.of(Dealer(), gamblers)
 
     val dealingShoe = DealingShoe()
@@ -38,7 +39,7 @@ private fun dealCardToGambler(
             break
         }
 
-        val wantsMoreCard = BlackjackReader.readDecisionForMoreCard(gambler)
+        val wantsMoreCard = BlackjackReader.readDecisionForMoreCard(gambler.name)
         if (wantsMoreCard.not()) {
             break
         }

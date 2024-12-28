@@ -10,15 +10,15 @@ object BlackjackReader {
 
     private val Y_OR_N_REGEX = Regex("[${YES_SIGN}${NO_SIGN}${YES_SIGN.uppercase()}${NO_SIGN.uppercase()}]")
 
-    fun readGamblers(): List<Gambler> {
+    fun readGamblerNames(): List<String> {
         BlackjackPrinter.askForPlayerName()
         return ConsoleReader.readLine()
             .split(NAME_SEPARATOR)
-            .map { name -> Gambler(name.trim()) }
+            .map { name -> name.trim() }
     }
 
-    fun readDecisionForMoreCard(gambler: Gambler): Boolean {
-        BlackjackPrinter.askIfWantMoreCard(gambler)
+    fun readDecisionForMoreCard(name: String): Boolean {
+        BlackjackPrinter.askIfWantMoreCard(name)
 
         val readLine = ConsoleReader.readLine().lowercase()
         require(Y_OR_N_REGEX.matches(readLine)) { "$YES_SIGN 또는 ${NO_SIGN}만 입력해 주세요. (대소문자 구분 X) 현재 입력 = $readLine" }
