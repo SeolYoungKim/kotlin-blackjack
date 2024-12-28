@@ -8,8 +8,8 @@ class Gambler(name: String) : Participant(name) {
 
     fun determineResultStatus(dealer: Dealer): ResultStatus {
         return when {
-            dealer.isExceedBlackjackScore() -> ResultStatus.WIN
-            this.isExceedBlackjackScore() -> ResultStatus.DEFEAT
+            dealer.isBurst() -> ResultStatus.WIN
+            this.isBurst() -> ResultStatus.DEFEAT
             this.isScoreLargerThan(dealer) -> ResultStatus.WIN
             this.isScoreEqualTo(dealer) -> ResultStatus.DRAW
             else -> ResultStatus.DEFEAT

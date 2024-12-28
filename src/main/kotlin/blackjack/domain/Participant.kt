@@ -14,12 +14,8 @@ sealed class Participant(val name: String) {
         _cards.add(card)
     }
 
-    fun isExceedBlackjackScore(): Boolean {
+    fun isBurst(): Boolean {
         return calculateTotalScore() > BlackjackRule.BLACKJACK_SCORE
-    }
-
-    fun isNotExceedBlackjackScore(): Boolean {
-        return isExceedBlackjackScore().not()
     }
 
     fun isScoreEqualTo(other: Participant): Boolean {
