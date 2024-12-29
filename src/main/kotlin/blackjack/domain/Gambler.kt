@@ -9,7 +9,11 @@ class Gambler(name: String) : Participant(name) {
         return score >= BlackjackRule.BLACKJACK_SCORE
     }
 
-    fun determineResultStatus(dealer: Dealer): ResultStatus {
+    fun determineResult(dealer: Dealer): GamblerResult {
+        return GamblerResult(this, determineResultStatus(dealer))
+    }
+
+    private fun determineResultStatus(dealer: Dealer): ResultStatus {
         return when {
             dealer.isBurst() -> ResultStatus.WIN
             this.isBurst() -> ResultStatus.DEFEAT

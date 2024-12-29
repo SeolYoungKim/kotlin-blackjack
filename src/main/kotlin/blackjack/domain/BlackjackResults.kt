@@ -9,15 +9,13 @@ class BlackjackResults(participants: Participants) {
         val gamblers = participants.extractGamblers()
 
         gamblerResults = determineGamblerResults(dealer, gamblers)
-        dealerResult = DealerResult(dealer, gamblerResults)
+        dealerResult = dealer.determineResult(gamblerResults)
     }
 
     private fun determineGamblerResults(
         dealer: Dealer,
         gamblers: List<Gambler>,
     ): List<GamblerResult> {
-        return gamblers.map { gambler ->
-            GamblerResult(gambler, gambler.determineResultStatus(dealer))
-        }
+        return gamblers.map { gambler -> gambler.determineResult(dealer)}
     }
 }

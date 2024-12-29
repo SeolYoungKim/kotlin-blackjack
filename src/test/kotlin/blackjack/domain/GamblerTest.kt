@@ -66,8 +66,8 @@ class GamblerTest : FreeSpec({
             gambler2.receive(Card(Suit.HEARTS, Rank.TWO), Card(Suit.SPADES, Rank.TWO))
 
             assertSoftly {
-                gambler2.determineResultStatus(dealer) shouldBe ResultStatus.WIN
-                gambler1.determineResultStatus(dealer) shouldBe ResultStatus.WIN
+                gambler2.determineResult(dealer).resultStatus shouldBe ResultStatus.WIN
+                gambler1.determineResult(dealer).resultStatus shouldBe ResultStatus.WIN
             }
         }
 
@@ -78,7 +78,7 @@ class GamblerTest : FreeSpec({
             val gambler = Gambler("kim")
             gambler.receive(Card(Suit.HEARTS, Rank.TEN), Card(Suit.SPADES, Rank.TEN), Card(Suit.DIAMONDS, Rank.TWO))
 
-            gambler.determineResultStatus(dealer) shouldBe ResultStatus.DEFEAT
+            gambler.determineResult(dealer).resultStatus shouldBe ResultStatus.DEFEAT
         }
 
         "딜러가 21점이하이고, 겜블러가 딜러보다 점수가 낮으면 패배한다" {
@@ -88,7 +88,7 @@ class GamblerTest : FreeSpec({
             val gambler = Gambler("kim")
             gambler.receive(Card(Suit.HEARTS, Rank.TEN), Card(Suit.SPADES, Rank.TEN))
 
-            gambler.determineResultStatus(dealer) shouldBe ResultStatus.DEFEAT
+            gambler.determineResult(dealer).resultStatus shouldBe ResultStatus.DEFEAT
         }
 
         "딜러가 21점 이하이고, 겜블러가 딜러보다 점수가 높으면 승리한다" {
@@ -98,7 +98,7 @@ class GamblerTest : FreeSpec({
             val gambler = Gambler("kim")
             gambler.receive(Card(Suit.HEARTS, Rank.TEN), Card(Suit.SPADES, Rank.ACE))
 
-            gambler.determineResultStatus(dealer) shouldBe ResultStatus.WIN
+            gambler.determineResult(dealer).resultStatus shouldBe ResultStatus.WIN
         }
 
         "딜러가 21점 이하이고, 겜블러와 딜러의 점수가 동일하면 무승부다" {
@@ -108,7 +108,7 @@ class GamblerTest : FreeSpec({
             val gambler = Gambler("kim")
             gambler.receive(Card(Suit.HEARTS, Rank.TEN), Card(Suit.SPADES, Rank.TEN))
 
-            gambler.determineResultStatus(dealer) shouldBe ResultStatus.DRAW
+            gambler.determineResult(dealer).resultStatus shouldBe ResultStatus.DRAW
         }
     }
 })
