@@ -30,10 +30,6 @@ class Participants(private val participants: List<Participant>) {
         return participants.filterIsInstance<Gambler>()
     }
 
-    fun extractNames(): List<String> {
-        return participants.map { participant -> participant.name }
-    }
-
     fun extractDealer(): Dealer {
         return participants.filterIsInstance<Dealer>().first()
     }
