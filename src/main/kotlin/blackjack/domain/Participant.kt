@@ -29,5 +29,7 @@ sealed class Participant(val name: String) {
         return score > other.score
     }
 
+    abstract fun isDealer(): Boolean
+
     abstract fun canNotReceiveCard(): Boolean
 }
