@@ -1,25 +1,25 @@
 package blackjack.domain
 
-class Gambler(val name: String) {
-    private val _cards: MutableList<Card> = mutableListOf()
-
-    val cards: List<Card>
-        get() = _cards.toList()
-
-    fun receive(vararg cards: Card) {
-        _cards.addAll(cards)
+class Gambler(name: String) : Participant(name) {
+    override fun isDealer(): Boolean {
+        return false
     }
 
-    fun receive(card: Card) {
-        _cards.add(card)
+    override fun canNotReceiveCard(): Boolean {
+        return score >= BlackjackRule.BLACKJACK_SCORE
     }
 
-    fun calculateTotalScore(): Int {
-        return ScoreCalculator.calculate(cards)
+    fun determineResult(dealer: Dealer): GamblerResult {
+        return GamblerResult(this, determineResultStatus(dealer))
     }
 
-    fun canNotReceiveCard(): Boolean {
-        val totalScore = ScoreCalculator.calculate(cards)
-        return totalScore >= BlackJackRule.WIN_SCORE
+    private fun determineResultStatus(dealer: Dealer): ResultStatus {
+        return when {
+            dealer.isBurst() -> ResultStatus.WIN
+            this.isBurst() -> ResultStatus.DEFEAT
+            this.isScoreLargerThan(dealer) -> ResultStatus.WIN
+            this.isScoreEqualTo(dealer) -> ResultStatus.DRAW
+            else -> ResultStatus.DEFEAT
+        }
     }
 }

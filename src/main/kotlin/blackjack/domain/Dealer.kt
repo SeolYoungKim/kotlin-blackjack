@@ -1,11 +1,19 @@
 package blackjack.domain
 
-class Dealer(private val deck: Deck = Deck()) {
-    fun dealTwoCardsEach(gamblers: Gamblers) {
-        gamblers.receiveTwoCardsEach(deck)
+class Dealer : Participant("딜러") {
+    override fun isDealer(): Boolean {
+        return true
     }
 
-    fun dealCard(gambler: Gambler) {
-        gambler.receive(deck.draw())
+    override fun canNotReceiveCard(): Boolean {
+        return score > MAXIMUM_SCORE_TO_RECEIVE_CARD
+    }
+
+    fun determineResult(gamblerResults: List<GamblerResult>): DealerResult {
+        return DealerResult(this, gamblerResults)
+    }
+
+    companion object {
+        const val MAXIMUM_SCORE_TO_RECEIVE_CARD = 16
     }
 }
