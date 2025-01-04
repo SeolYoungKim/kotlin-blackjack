@@ -16,6 +16,6 @@ class BlackjackResults(participants: Participants) {
         dealer: Dealer,
         gamblers: List<Gambler>,
     ): List<GamblerResult> {
-        return gamblers.map { gambler -> gambler.determineResult(dealer)}
+        return gamblers.map { gambler -> gambler.determineResult(dealer) }
     }
 }
