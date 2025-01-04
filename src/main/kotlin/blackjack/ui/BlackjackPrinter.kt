@@ -103,4 +103,8 @@ object BlackjackPrinter {
             ResultStatus.DRAW -> "무"
         }
     }
+
+    fun askBetAmount(gamblerName: String) {
+        println("${gamblerName}의 배팅 금액은?")
+    }
 }

@@ -1,6 +1,9 @@
 package blackjack.domain
 
 import io.kotest.assertions.assertSoftly
+import io.kotest.assertions.throwables.shouldNotThrow
+import io.kotest.assertions.throwables.shouldNotThrowAny
+import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.FreeSpec
 import io.kotest.matchers.collections.shouldHaveSize
 import io.kotest.matchers.shouldBe
@@ -51,6 +54,22 @@ class GamblerTest : FreeSpec({
             )
 
             gambler.canNotReceiveCard() shouldBe true
+        }
+    }
+
+    "배팅 금액은 0원을 초과해야 한다" - {
+        "0원을 초과하지 않는 경우 예외를 던진다" - {
+            listOf(-1, 0).forEach { betAmount ->
+                "betAmount: $betAmount" {
+                    val gambler = Gambler("kim")
+                    shouldThrow<IllegalArgumentException> { gambler.placeBet(betAmount) }
+                }
+            }
+        }
+
+        "0원을 초과하는 경우 예외가 발생하지 않는다" {
+            val gambler = Gambler("kim")
+            shouldNotThrowAny { gambler.placeBet(1) }
         }
     }
 

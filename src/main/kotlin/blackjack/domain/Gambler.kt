@@ -13,6 +13,7 @@ class Gambler(name: String) : Participant(name) {
     }
 
     fun placeBet(betAmount: Int) {
+        require(betAmount > 0) { "배팅 금액은 0원을 초과해야 합니다. 현재 입력 = $betAmount" }
         this.betAmount = betAmount
     }
 
