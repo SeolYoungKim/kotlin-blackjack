@@ -21,6 +21,15 @@ sealed class Participant(val name: String) {
         return score > BlackjackRule.BLACKJACK_SCORE
     }
 
+    fun isBlackjack(): Boolean {
+        return cards.size == 2
+                && score == BlackjackRule.BLACKJACK_SCORE
+    }
+
+    fun isNotBlackjack(): Boolean {
+        return isBlackjack().not()
+    }
+
     fun isScoreEqualTo(other: Participant): Boolean {
         return score == other.score
     }

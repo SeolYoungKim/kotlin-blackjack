@@ -55,6 +55,26 @@ class GamblerTest : FreeSpec({
     }
 
     "겜블러의 승패 결과를 판정할 수 있다" - {
+        "딜러가 블랙잭이고 겜블러가 블랙잭이면 무승부다" {
+            val dealer = Dealer()
+            dealer.receive(Card(Suit.HEARTS, Rank.TEN), Card(Suit.SPADES, Rank.ACE))
+
+            val gambler = Gambler("kim")
+            gambler.receive(Card(Suit.SPADES, Rank.TEN), Card(Suit.HEARTS, Rank.ACE))
+
+            gambler.determineResult(dealer).resultStatus shouldBe ResultStatus.DRAW
+        }
+
+        "딜러가 블랙잭이고 겜블러가 블랙잭이 아니면 패배한다" {
+            val dealer = Dealer()
+            dealer.receive(Card(Suit.HEARTS, Rank.TEN), Card(Suit.SPADES, Rank.ACE))
+
+            val gambler = Gambler("kim")
+            gambler.receive(Card(Suit.SPADES, Rank.TEN), Card(Suit.CLUBS, Rank.TEN), Card(Suit.DIAMONDS, Rank.ACE))
+
+            gambler.determineResult(dealer).resultStatus shouldBe ResultStatus.DEFEAT
+        }
+
         "딜러가 21점을 초과할 경우 겜블러의 카드에 상관 없이 겜블러가 무조건 승리한다" {
             val dealer = Dealer()
             dealer.receive(Card(Suit.HEARTS, Rank.TEN), Card(Suit.SPADES, Rank.TEN), Card(Suit.DIAMONDS, Rank.TWO))

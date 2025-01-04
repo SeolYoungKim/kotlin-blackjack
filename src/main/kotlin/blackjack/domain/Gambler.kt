@@ -15,6 +15,7 @@ class Gambler(name: String) : Participant(name) {
 
     private fun determineResultStatus(dealer: Dealer): ResultStatus {
         return when {
+            dealer.isBlackjack() && this.isNotBlackjack() -> ResultStatus.DEFEAT
             dealer.isBurst() -> ResultStatus.WIN
             this.isBurst() -> ResultStatus.DEFEAT
             this.isScoreLargerThan(dealer) -> ResultStatus.WIN
