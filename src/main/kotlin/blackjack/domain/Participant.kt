@@ -9,6 +9,8 @@ sealed class Participant(val name: String) {
     val score: Int
         get() = _cards.calculateTotalScore()
 
+    abstract val isDealer: Boolean
+
     fun receive(vararg cards: Card) {
         _cards.addAll(*cards)
     }
@@ -37,8 +39,6 @@ sealed class Participant(val name: String) {
     fun isScoreLargerThan(other: Participant): Boolean {
         return score > other.score
     }
-
-    abstract fun isDealer(): Boolean
 
     abstract fun canNotReceiveCard(): Boolean
 }

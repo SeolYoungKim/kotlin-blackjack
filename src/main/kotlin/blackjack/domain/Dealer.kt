@@ -1,9 +1,12 @@
 package blackjack.domain
 
+import blackjack.util.reverseSign
+
 class Dealer : Participant("딜러") {
-    override fun isDealer(): Boolean {
-        return true
-    }
+    override val isDealer: Boolean = true
+
+    var profit: Double = 0.0
+        private set
 
     override fun canNotReceiveCard(): Boolean {
         return score > MAXIMUM_SCORE_TO_RECEIVE_CARD
@@ -11,6 +14,12 @@ class Dealer : Participant("딜러") {
 
     fun determineResult(gamblerResults: List<GamblerResult>): DealerResult {
         return DealerResult(this, gamblerResults)
+    }
+
+    fun calculateProfit(gamblers: List<Gambler>) {
+        profit = gamblers.filter { gambler -> gambler.isLost }
+            .sumOf { gambler -> gambler.profit }
+            .reverseSign()
     }
 
     companion object {
