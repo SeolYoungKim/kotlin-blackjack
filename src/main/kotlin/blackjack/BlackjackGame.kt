@@ -21,11 +21,12 @@ fun main() {
     placeBet(gamblers)
     dealCardToGamblers(dealingShoe, gamblers)
 
-    dealCardToDealer(participants, dealingShoe)
+    val dealer = participants.extractDealer()
+    dealCardToDealer(dealingShoe, dealer)
     BlackjackPrinter.printAllFinalScore(participants)
 
     val blackjackResults = BlackjackResults(participants)
-    BlackjackPrinter.printWinOrDefeatResults(blackjackResults)
+    BlackjackPrinter.printAllFinalProfit(blackjackResults)
 }
 
 private fun participateInThisGame(): Participants {
@@ -67,10 +68,9 @@ private fun dealCardToGamblers(
 }
 
 private fun dealCardToDealer(
-    participants: Participants,
     dealingShoe: DealingShoe,
+    dealer: Dealer,
 ) {
-    val dealer = participants.extractDealer()
     if (dealer.canNotReceiveCard()) {
         BlackjackPrinter.announceCanNotReceiveCard(dealer)
     } else {

@@ -76,35 +76,27 @@ object BlackjackPrinter {
         printLineFeed()
     }
 
-    fun printWinOrDefeatResults(blackjackResults: BlackjackResults) {
-        val dealerResult = blackjackResults.dealerResult
-        val gamblerResultsMessage = createGamblerResultsMessage(blackjackResults)
-
-        val resultsMessage =
-            """
-            |${dealerResult.dealer.name}: ${dealerResult.winCount}승 ${dealerResult.defeatCount}패 ${dealerResult.drawCount}무
-            |$gamblerResultsMessage
-            """.trimMargin()
-        println(resultsMessage)
-    }
-
-    private fun createGamblerResultsMessage(blackjackResults: BlackjackResults): String {
-        val gamblerResults = blackjackResults.gamblerResults
-        return gamblerResults.joinToString(separator = LINE_FEED) { gamblerResult ->
-            val gambler = gamblerResult.gambler
-            "${gambler.name}: ${createWinOrDefeatMessage(gamblerResult)}"
-        }
-    }
-
-    private fun createWinOrDefeatMessage(gamblerResult: GamblerResult): String {
-        return when (gamblerResult.resultStatus) {
-            ResultStatus.WIN -> "승"
-            ResultStatus.DEFEAT -> "패"
-            ResultStatus.DRAW -> "무"
-        }
-    }
-
     fun askBetAmount(gamblerName: String) {
         println("${gamblerName}의 배팅 금액은?")
+    }
+
+    fun printAllFinalProfit(blackjackResults: BlackjackResults) {
+        println("## 최종 수익")
+        val dealerResult = blackjackResults.dealerResult
+        printProfitMessage(
+            name = dealerResult.dealer.name,
+            profit = dealerResult.profit,
+        )
+
+        blackjackResults.gamblerResults.forEach { gamblerResult ->
+            printProfitMessage(
+                name = gamblerResult.gambler.name,
+                profit = gamblerResult.profit,
+            )
+        }
+    }
+
+    private fun printProfitMessage(name: String, profit: Double) {
+        println("${name}: $profit")
     }
 }
