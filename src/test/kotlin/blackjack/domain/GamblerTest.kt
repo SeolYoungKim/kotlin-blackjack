@@ -59,7 +59,7 @@ class GamblerTest : FreeSpec({
 
     "배팅 금액은 0원을 초과해야 한다" - {
         "0원을 초과하지 않는 경우 예외를 던진다" - {
-            listOf(-1, 0).forEach { betAmount ->
+            listOf(-1.0, 0.0).forEach { betAmount ->
                 "betAmount: $betAmount" {
                     val gambler = Gambler("kim")
                     shouldThrow<IllegalArgumentException> { gambler.placeBet(betAmount) }
@@ -69,7 +69,57 @@ class GamblerTest : FreeSpec({
 
         "0원을 초과하는 경우 예외가 발생하지 않는다" {
             val gambler = Gambler("kim")
-            shouldNotThrowAny { gambler.placeBet(1) }
+            shouldNotThrowAny { gambler.placeBet(1.0) }
+        }
+    }
+
+    "결과에 따라 GamblerResult를 만든다" - {
+        "딜러를 이기고 블랙잭인 경우" {
+            val dealer = Dealer()
+            dealer.receive(Card(Suit.CLUBS, Rank.TWO), Card(Suit.CLUBS, Rank.THREE))
+
+            val gambler = Gambler("kim")
+            gambler.receive(Card(Suit.DIAMONDS, Rank.ACE), Card(Suit.DIAMONDS, Rank.TEN))
+            gambler.placeBet(1000.0)
+
+            val gamblerResult = gambler.determineResult(dealer)
+            gamblerResult.profit shouldBe 1500.0
+        }
+
+        "딜러를 이겼지만 블랙잭은 아닌 경우" {
+            val dealer = Dealer()
+            dealer.receive(Card(Suit.CLUBS, Rank.TWO), Card(Suit.CLUBS, Rank.THREE))
+
+            val gambler = Gambler("kim")
+            gambler.receive(Card(Suit.DIAMONDS, Rank.TWO), Card(Suit.DIAMONDS, Rank.TEN))
+            gambler.placeBet(1000.0)
+
+            val gamblerResult = gambler.determineResult(dealer)
+            gamblerResult.profit shouldBe 1000.0
+        }
+
+        "딜러와 무승부인 경우" {
+            val dealer = Dealer()
+            dealer.receive(Card(Suit.CLUBS, Rank.TWO), Card(Suit.CLUBS, Rank.THREE))
+
+            val gambler = Gambler("kim")
+            gambler.receive(Card(Suit.DIAMONDS, Rank.TWO), Card(Suit.DIAMONDS, Rank.THREE))
+            gambler.placeBet(1000.0)
+
+            val gamblerResult = gambler.determineResult(dealer)
+            gamblerResult.profit shouldBe 1000.0
+        }
+
+        "딜러에게 진 경우" {
+            val dealer = Dealer()
+            dealer.receive(Card(Suit.CLUBS, Rank.TWO), Card(Suit.CLUBS, Rank.THREE))
+
+            val gambler = Gambler("kim")
+            gambler.receive(Card(Suit.DIAMONDS, Rank.TWO), Card(Suit.DIAMONDS, Rank.TWO))
+            gambler.placeBet(1000.0)
+
+            val gamblerResult = gambler.determineResult(dealer)
+            gamblerResult.profit shouldBe -1000.0
         }
     }
 })
