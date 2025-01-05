@@ -18,7 +18,7 @@ class DealerTest : FreeSpec({
         dealer.canNotReceiveCard() shouldBe false
     }
 
-    "패배한 겜블러들의 배팅금을 합산한 금액을 수익금으로 갖는 DealerResult를 만든다" {
+    "겜블러들의 배팅금을 합산한 금액을 수익금으로 갖는 DealerResult를 만든다" {
         val dealer = Dealer()
         dealer.receive(Card(Suit.DIAMONDS, Rank.ACE), Card(Suit.DIAMONDS, Rank.TEN))  // 21
 
@@ -42,6 +42,6 @@ class DealerTest : FreeSpec({
             )
         )
 
-        dealerResult.profit shouldBe 2000.0
+        dealerResult.profit shouldBe 1000.0
     }
 })

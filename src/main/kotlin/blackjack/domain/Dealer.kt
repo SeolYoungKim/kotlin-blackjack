@@ -8,8 +8,7 @@ class Dealer : Participant("딜러") {
     }
 
     fun determineResult(gamblerResults: List<GamblerResult>): DealerResult {
-        val profit = gamblerResults.filter { gamblerResult -> gamblerResult.isLost() }
-            .sumOf { gamblerResult -> gamblerResult.profit }
+        val profit = gamblerResults.sumOf { gamblerResult -> gamblerResult.profit }
             .reverseSign()
 
         return DealerResult(this, profit)
