@@ -37,8 +37,8 @@ class ResultStatusTest : FreeSpec({
             gambler2.receive(Card(Suit.HEARTS, Rank.TWO), Card(Suit.SPADES, Rank.TWO))
 
             assertSoftly {
-                gambler2.determineResult(dealer).resultStatus shouldBe ResultStatus.WIN
-                gambler1.determineResult(dealer).resultStatus shouldBe ResultStatus.WIN
+                ResultStatus.of(gambler1, dealer) shouldBe ResultStatus.WIN
+                ResultStatus.of(gambler2, dealer) shouldBe ResultStatus.WIN
             }
         }
 
