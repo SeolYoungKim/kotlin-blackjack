@@ -9,13 +9,9 @@ class Dealer : Participant("딜러") {
 
     fun determineResult(gamblerResults: List<GamblerResult>): DealerResult {
         val profit = gamblerResults.sumOf { gamblerResult -> gamblerResult.profit }
-            .reverseSign()
+            .unaryMinus()
 
         return DealerResult(this, profit)
-    }
-
-    private fun Double.reverseSign(): Double {
-        return -this
     }
 
     companion object {
