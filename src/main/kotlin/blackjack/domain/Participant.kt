@@ -24,7 +24,7 @@ sealed class Participant(val name: String) {
     }
 
     fun isBlackjack(): Boolean {
-        return cards.size == 2
+        return cards.size == BlackjackRule.NUMBER_OF_CARDS_FOR_BLACKJACK
                 && score == BlackjackRule.BLACKJACK_SCORE
     }
 
