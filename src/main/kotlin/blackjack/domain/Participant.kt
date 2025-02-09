@@ -9,7 +9,7 @@ sealed class Participant(val name: String) {
     val score: Int
         get() = _cards.calculateTotalScore()
 
-    abstract val isDealer: Boolean
+    abstract fun isDealer(): Boolean
 
     fun receive(vararg cards: Card) {
         _cards.addAll(*cards)

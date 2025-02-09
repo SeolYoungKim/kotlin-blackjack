@@ -1,7 +1,7 @@
 package blackjack.domain
 
 class Dealer : Participant("딜러") {
-    override val isDealer: Boolean = true
+    override fun isDealer() = true
 
     override fun canNotReceiveCard(): Boolean {
         return score > MAXIMUM_SCORE_TO_RECEIVE_CARD

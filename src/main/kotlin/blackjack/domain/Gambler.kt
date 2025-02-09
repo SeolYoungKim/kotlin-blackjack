@@ -1,8 +1,9 @@
 package blackjack.domain
 
 class Gambler(name: String) : Participant(name) {
-    override val isDealer: Boolean = false
     private var betAmount: Double = 0.0
+
+    override fun isDealer() = false
 
     override fun canNotReceiveCard(): Boolean {
         return score >= BlackjackRule.BLACKJACK_SCORE

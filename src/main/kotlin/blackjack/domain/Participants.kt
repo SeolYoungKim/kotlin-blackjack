@@ -11,12 +11,12 @@ class Participants(private val participants: List<Participant>) {
     }
 
     private fun requiresOnlyOneDealer() {
-        val dealers = participants.filter { participant -> participant.isDealer }
+        val dealers = participants.filter { participant -> participant.isDealer() }
         require(dealers.size == MAXIMUM_NUMBER_OF_DEALERS) { "게임 내 딜러는 한명만 참여 가능합니다." }
     }
 
     private fun requiresAtLeastOneGambler() {
-        val gamblers = participants.filter { participant -> !participant.isDealer }
+        val gamblers = participants.filter { participant -> !participant.isDealer() }
         require(gamblers.isNotEmpty()) { "게임 내 겜블러는 한명 이상 참여해야 합니다." }
     }
 
