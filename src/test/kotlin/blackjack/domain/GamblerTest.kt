@@ -96,7 +96,7 @@ class GamblerTest : FreeSpec({
             gambler.placeBet(1000)
 
             val gamblerResult = gambler.determineResult(dealer)
-            gamblerResult.profit shouldBe BigDecimal("1000.0")
+            gamblerResult.profit shouldBe BigDecimal("1000")
         }
 
         "딜러와 무승부인 경우" {
@@ -108,7 +108,7 @@ class GamblerTest : FreeSpec({
             gambler.placeBet(1000)
 
             val gamblerResult = gambler.determineResult(dealer)
-            gamblerResult.profit shouldBe BigDecimal("1000.0")
+            gamblerResult.profit shouldBe BigDecimal("1000")
         }
 
         "딜러에게 진 경우" {
@@ -120,7 +120,7 @@ class GamblerTest : FreeSpec({
             gambler.placeBet(1000)
 
             val gamblerResult = gambler.determineResult(dealer)
-            gamblerResult.profit shouldBe BigDecimal("-1000.0")
+            gamblerResult.profit shouldBe BigDecimal("-1000")
         }
     }
 })

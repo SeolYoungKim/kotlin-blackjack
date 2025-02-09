@@ -18,8 +18,7 @@ class Gambler(name: String) : Participant(name) {
 
     fun determineResult(dealer: Dealer): GamblerResult {
         val resultStatus = ResultStatus.of(this, dealer)
-        val multiplier = ProfitMultiplier.determine(resultStatus, isBlackjack())
-        val profit = betAmount.multiply(multiplier.toBigDecimal())
+        val profit = betAmount.multiply(resultStatus.profitRate)
         return GamblerResult(this, profit)
     }
 }

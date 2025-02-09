@@ -43,6 +43,6 @@ class DealerTest : FreeSpec({
             )
         )
 
-        dealerResult.profit shouldBe BigDecimal("1000.0")
+        dealerResult.profit shouldBe BigDecimal("1000")
     }
 })
