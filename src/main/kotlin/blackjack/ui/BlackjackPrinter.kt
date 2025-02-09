@@ -8,6 +8,9 @@ import blackjack.domain.GamblerResult
 import blackjack.domain.Participant
 import blackjack.domain.Participants
 import blackjack.domain.ResultStatus
+import java.math.BigDecimal
+import java.math.MathContext
+import java.math.RoundingMode
 
 object BlackjackPrinter {
     private const val PRINT_SEPARATOR = ", "
@@ -96,7 +99,7 @@ object BlackjackPrinter {
         }
     }
 
-    private fun printProfitMessage(name: String, profit: Double) {
-        println("${name}: $profit")
+    private fun printProfitMessage(name: String, profit: BigDecimal) {
+        println("${name}: ${profit.setScale(0, RoundingMode.HALF_UP)}")
     }
 }

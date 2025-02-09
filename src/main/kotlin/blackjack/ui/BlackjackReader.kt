@@ -25,7 +25,7 @@ object BlackjackReader {
         return readLine == YES_SIGN
     }
 
-    fun readBetAmount(gamblerName: String): Double {
+    fun readBetAmount(gamblerName: String): Long {
         BlackjackPrinter.askBetAmount(gamblerName)
         return ConsoleReader.readNumber()
     }

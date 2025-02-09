@@ -1,7 +1,9 @@
 package blackjack.domain
 
+import java.math.BigDecimal
+
 class Gambler(name: String) : Participant(name) {
-    private var betAmount: Double = 0.0
+    private lateinit var betAmount: BigDecimal
 
     override fun isDealer() = false
 
@@ -9,14 +11,15 @@ class Gambler(name: String) : Participant(name) {
         return score >= BlackjackRule.BLACKJACK_SCORE
     }
 
-    fun placeBet(betAmount: Double) {
+    fun placeBet(betAmount: Long) {
         require(betAmount > 0) { "배팅 금액은 0원을 초과해야 합니다. 현재 입력 = $betAmount" }
-        this.betAmount = betAmount
+        this.betAmount = betAmount.toBigDecimal()
     }
 
     fun determineResult(dealer: Dealer): GamblerResult {
         val resultStatus = ResultStatus.of(this, dealer)
-        val profit = betAmount * ProfitMultiplier.determine(resultStatus, isBlackjack())
+        val multiplier = ProfitMultiplier.determine(resultStatus, isBlackjack())
+        val profit = betAmount.multiply(multiplier.toBigDecimal())
         return GamblerResult(this, profit)
     }
 }
