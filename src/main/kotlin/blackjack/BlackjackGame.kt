@@ -25,7 +25,7 @@ fun main() {
     dealCardToDealer(dealingShoe, dealer)
     BlackjackPrinter.printAllFinalScore(participants)
 
-    val blackjackResults = BlackjackResults(participants)
+    val blackjackResults = dealer.determineResult(gamblers)
     BlackjackPrinter.printAllFinalProfit(blackjackResults)
 }
 
@@ -35,7 +35,7 @@ private fun participateInThisGame(): Participants {
     return Participants.of(Dealer(), gamblers)
 }
 
-fun placeBet(gamblers: List<Gambler>) {
+private fun placeBet(gamblers: List<Gambler>) {
     gamblers.forEach { gambler ->
         val betAmount = BlackjackReader.readBetAmount(gambler.name)
         gambler.placeBet(betAmount)

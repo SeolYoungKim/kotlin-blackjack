@@ -16,9 +16,7 @@ class Gambler(name: String) : Participant(name) {
         this.betAmount = betAmount.toBigDecimal()
     }
 
-    fun determineResult(dealer: Dealer): GamblerResult {
-        val resultStatus = ResultStatus.of(this, dealer)
-        val profit = betAmount.multiply(resultStatus.profitRate)
-        return GamblerResult(this, profit)
+    fun calculateProfit(profitRate: BigDecimal): BigDecimal {
+        return betAmount.multiply(profitRate)
     }
 }
